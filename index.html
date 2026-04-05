@@ -2,10 +2,733 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=privacy.html">
-  <title>The Hamster Wheel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Hamster Wheel — Satirical Life Sim for iOS</title>
+  <meta name="description" content="A satirical life-simulation strategy game. Allocate 60 hours a week, outsmart AI rivals, and navigate the economic chaos of 2026. Free to try on iOS.">
+  <meta property="og:title" content="The Hamster Wheel">
+  <meta property="og:description" content="Satirical life sim. 60 hours. 8 locations. 4 rivals. Free to try on iOS.">
+  <meta property="og:image" content="https://kari-ann.github.io/hamster-wheel-pages/assets/icon.png">
+  <meta property="og:url" content="https://kari-ann.github.io/hamster-wheel-pages/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,700&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #141620;
+      --bg3: #1a1d2e;
+      --accent: #e94560;
+      --accent2: #f97316;
+      --text: #e8e8f0;
+      --text-muted: #8888a8;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── UTILITY ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(233,69,96,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 27px;
+      margin: 0 auto 28px;
+      display: block;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 36px;
+    }
+
+    .hero-tagline {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      color: var(--text);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-appstore {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-appstore:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .btn-appstore svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .hero-meta {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span { color: var(--text); font-weight: 700; }
+
+    /* ── WHAT IS IT ── */
+    .what {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .what-block h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .what-block p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .what-block p strong {
+      color: var(--text);
+    }
+
+    /* ── SCREENSHOTS ── */
+    .screenshots-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 8px 4px 16px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar { height: 4px; }
+    .screenshots-scroll::-webkit-scrollbar-track { background: transparent; }
+    .screenshots-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+    .screenshot-thumb {
+      flex-shrink: 0;
+      width: 160px;
+      height: 346px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .screenshot-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .screenshots-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ── RIVALS ── */
+    .rivals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .rival-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .rival-card:hover {
+      border-color: rgba(233,69,96,0.4);
+      transform: translateY(-2px);
+    }
+
+    .rival-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .rival-catchphrase {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .rival-strategy {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── VICTORY PATHS ── */
+    .paths-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .paths-list {
+      margin-top: 36px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .path-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg3);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .path-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .path-name {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .path-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ── PRESS KIT ── */
+    .presskit-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 32px;
+    }
+
+    .presskit-copy {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-style: italic;
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      margin-bottom: 24px;
+    }
+
+    .facts-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .fact-badge {
+      background: rgba(233,69,96,0.12);
+      border: 1px solid rgba(233,69,96,0.25);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* ── SUPPORT ── */
+    .faq-list {
+      margin-top: 32px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .faq-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .faq-a {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .faq-a a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-box {
+      margin-top: 40px;
+      padding: 28px;
+      background: var(--bg3);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-box p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .contact-box a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .section { padding: 56px 0; }
+      .hero { padding: 56px 0 40px; }
+      .rival-card { padding: 18px 16px; }
+    }
+  </style>
 </head>
 <body>
-  <p><a href="privacy.html">Privacy Policy</a></p>
+
+<!-- ──────────── HERO ──────────── -->
+<section class="hero">
+  <div class="container">
+    <img src="assets/icon.png" alt="The Hamster Wheel" class="hero-icon">
+    <h1>The Hamster Wheel</h1>
+    <p class="hero-subtitle">Satirical Life Sim for iOS</p>
+    <p class="hero-tagline">"You wake up Monday with $200, no job, and 60 hours to spend."</p>
+
+    <div class="cta-group">
+      <a href="https://apps.apple.com/app/id6760509424" class="btn-appstore" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        Download on the App Store
+      </a>
+    </div>
+    <p class="hero-meta"><span>Free to try</span> — first 7 weeks, no restrictions. Unlock full game for $5.99.</p>
+  </div>
+</section>
+
+<!-- ──────────── VIDEO EMBED (uncomment when YouTube video is ready) ──────────── -->
+<!--
+<section class="section" style="padding: 0 0 60px;">
+  <div class="container" style="text-align: center;">
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--border);">
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID"
+        title="The Hamster Wheel — App Preview"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      </iframe>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ──────────── WHAT IS IT ──────────── -->
+<section class="what section">
+  <div class="container">
+    <p class="section-label">About the Game</p>
+    <h2>The rat race got a board game.</h2>
+
+    <div class="what-grid" style="margin-top: 40px;">
+      <div class="what-block">
+        <h3>60 hours. 8 locations.</h3>
+        <p>Every turn is one week. Allocate <strong>40 weekday hours and 20 weekend hours</strong> across 8 locations — the Job Center, University, Bank, Market, Clothing Store, Pawn Shop, Gym, and your Apartment. Every hour you spend is a trade-off.</p>
+      </div>
+      <div class="what-block">
+        <h3>Turn-based strategy.</h3>
+        <p>No time pressure — play at your own pace. <strong>One turn takes 2–5 minutes</strong>, making it perfect for commutes, breaks, or late-night sessions. Undo mistakes. Save and resume anytime.</p>
+      </div>
+      <div class="what-block">
+        <h3>The chaos of 2026.</h3>
+        <p>Tariff announcements tank your grocery budget. Crypto pumps and dumps. The Fed raises rates. Your landlord raises the rent. <strong>Satirical weekly news events</strong> create real economic pressure — the same strategy that worked last week might not work next week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── SCREENSHOTS ──────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Screenshots</p>
+    <h2>See the wheel in motion.</h2>
+
+    <div class="screenshots-scroll" style="margin-top: 32px;">
+      <!-- Screenshots to be placed in assets/screenshots/ -->
+      <div class="screenshot-thumb">
+        <img src="assets/screenshots/01-victory.png" alt="Victory screen" loading="lazy">
+      </div>
+      <div class="screenshot-thumb">
+        <img src="assets/screenshots/02-board-map.png" alt="Board map" loading="lazy">
+      </div>
+      <div class="screenshot-thumb">
+        <img src="assets/screenshots/03-weekend-event.png" alt="Weekend event" loading="lazy">
+      </div>
+      <div class="screenshot-thumb">
+        <img src="assets/screenshots/04-economy-tariffs.png" alt="Economy news event" loading="lazy">
+      </div>
+      <div class="screenshot-thumb">
+        <img src="assets/screenshots/05-rivals.png" alt="AI rivals" loading="lazy">
+      </div>
+    </div>
+    <p class="screenshots-hint">Scroll to see more →</p>
+  </div>
+</section>
+
+<!-- ──────────── RIVALS ──────────── -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <p class="section-label">Meet Your Rivals</p>
+    <h2>They all have a plan. Do you?</h2>
+    <p style="color: var(--text-muted); margin-top: 12px; max-width: 560px;">Nine rivals with distinct personalities and strategies. Beating them requires understanding how they think.</p>
+
+    <div class="rivals-grid">
+      <div class="rival-card">
+        <div class="rival-name">Morgan</div>
+        <div class="rival-catchphrase">"Grinds 80-hour weeks and talks about passive income."</div>
+        <div class="rival-strategy">Wealth-first</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Parker</div>
+        <div class="rival-catchphrase">"Networks obsessively and uses the right keywords."</div>
+        <div class="rival-strategy">Career-focused</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Quinn</div>
+        <div class="rival-catchphrase">"Reads every book and corrects your pronunciation."</div>
+        <div class="rival-strategy">Education path</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Chip</div>
+        <div class="rival-catchphrase">"Has been playing this game since before you were born."</div>
+        <div class="rival-strategy">Balanced veteran</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Sage</div>
+        <div class="rival-catchphrase">"Meditates through every crisis you're currently having."</div>
+        <div class="rival-strategy">Wellbeing path</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Reese</div>
+        <div class="rival-catchphrase">"Makes no plans and somehow keeps up anyway."</div>
+        <div class="rival-strategy">Wildcard</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Blair</div>
+        <div class="rival-catchphrase">"Turned their phone into a business model."</div>
+        <div class="rival-strategy">Hustle culture</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Finley</div>
+        <div class="rival-catchphrase">"Lives on nothing and calls it philosophy."</div>
+        <div class="rival-strategy">Minimalist</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-name">Devon</div>
+        <div class="rival-catchphrase">"Believes in you. And will still beat you."</div>
+        <div class="rival-strategy">The nice one</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── VICTORY PATHS ──────────── -->
+<section class="paths-section section">
+  <div class="container">
+    <p class="section-label">Five Paths to Victory</p>
+    <h2>Define what success looks like.</h2>
+
+    <div class="paths-list">
+      <div class="path-item">
+        <div class="path-icon">💰</div>
+        <div>
+          <div class="path-name">Wealth</div>
+          <div class="path-desc">Stack cash and investments until you're embarrassingly rich.</div>
+        </div>
+      </div>
+      <div class="path-item">
+        <div class="path-icon">📈</div>
+        <div>
+          <div class="path-name">Career</div>
+          <div class="path-desc">Climb the ladder to VP before your rivals do.</div>
+        </div>
+      </div>
+      <div class="path-item">
+        <div class="path-icon">🎓</div>
+        <div>
+          <div class="path-name">Education</div>
+          <div class="path-desc">Collect degrees like trophies. Yes, all of them.</div>
+        </div>
+      </div>
+      <div class="path-item">
+        <div class="path-icon">🧘</div>
+        <div>
+          <div class="path-name">Wellbeing</div>
+          <div class="path-desc">Achieve inner peace while everyone else has a breakdown.</div>
+        </div>
+      </div>
+      <div class="path-item">
+        <div class="path-icon">✨</div>
+        <div>
+          <div class="path-name">Self-Actualized</div>
+          <div class="path-desc">Balance all four. The hardest win. The most satisfying.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── PRESS KIT ──────────── -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Press Kit</p>
+    <h2>For journalists and creators.</h2>
+
+    <div class="presskit-box">
+      <p class="presskit-copy">
+        "The Hamster Wheel is a satirical life-simulation strategy game where you allocate 60 hours per week across 8 locations, outsmart AI rivals with distinct personalities, and navigate the economic chaos of 2026. Free to try on iOS — 7 full weeks of gameplay, no ads, no tracking."
+      </p>
+
+      <div class="facts-list">
+        <span class="fact-badge">Solo developer</span>
+        <span class="fact-badge">Free to try</span>
+        <span class="fact-badge">$5.99 unlock</span>
+        <span class="fact-badge">No ads</span>
+        <span class="fact-badge">No data collection</span>
+        <span class="fact-badge">iOS</span>
+        <span class="fact-badge">Turn-based strategy</span>
+        <span class="fact-badge">Hot seat multiplayer</span>
+      </div>
+
+      <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
+        Screenshots and app icon available above. For additional assets, contact
+        <a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com" style="color: var(--accent);">kariannolsenkristiansen+hamsterwheel@gmail.com</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── SUPPORT ──────────── -->
+<section class="section" id="support" style="padding-top: 0;">
+  <div class="container">
+    <p class="section-label">Support</p>
+    <h2>Need help?</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How do I save my game?</div>
+        <div class="faq-a">Your progress saves automatically on your device. Just close the app and come back — everything will be where you left it.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I restore my purchase?</div>
+        <div class="faq-a">Go to the game's Settings screen and tap "Restore Purchases". Your purchase is tied to your Apple ID, so it will restore on any device signed in with the same account.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there multiplayer?</div>
+        <div class="faq-a">Yes — Hot Seat mode lets 2 players take turns on the same device. Pass the phone back and forth.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you collect any data?</div>
+        <div class="faq-a">No. The game stores save data locally on your device only. No accounts, no tracking, no ads. See the <a href="privacy.html">Privacy Policy</a> for full details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the free trial?</div>
+        <div class="faq-a">The first 7 weeks of gameplay are completely free — full access to all game mechanics, all locations, and all rivals. No credit card required, no restrictions. After week 7, a one-time $5.99 unlock continues the game forever.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">The game is crashing / something isn't working.</div>
+        <div class="faq-a">Please send a quick description of what happened to the support email below. Include your device model and iOS version if you know it.</div>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <p>Still need help? Reach out directly:</p>
+      <a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com">kariannolsenkristiansen+hamsterwheel@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── FOOTER ──────────── -->
+<footer>
+  <div class="container">
+    <p>© 2026 The Hamster Wheel. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="#support">Support</a>
+      <a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
