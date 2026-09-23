@@ -6,7 +6,7 @@
   <title>The Hamster Wheel — Satirical Life Sim for iOS</title>
   <meta name="description" content="A satirical life-simulation strategy game. Allocate 60 hours a week, outsmart AI rivals, and navigate the economic chaos of 2026. Free to try on iOS.">
   <meta property="og:title" content="The Hamster Wheel">
-  <meta property="og:description" content="Satirical life sim. 60 hours. 8 locations. Six rivals. Free to try on iOS.">
+  <meta property="og:description" content="Satirical life sim. 60 hours. 9 locations. Six rivals. Free to try on iOS.">
   <meta property="og:image" content="https://kari-ann.github.io/hamster-wheel-pages/assets/icon.png">
   <meta property="og:url" content="https://kari-ann.github.io/hamster-wheel-pages/">
   <meta name="twitter:card" content="summary_large_image">
@@ -158,6 +158,28 @@
       flex-shrink: 0;
     }
 
+    .btn-browser {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .btn-browser:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.06);
+    }
+
     .hero-meta {
       margin-top: 24px;
       font-size: 13px;
@@ -196,6 +218,50 @@
     .what-block p strong {
       color: var(--text);
     }
+
+    /* ── TODAY'S WHEEL ── */
+    .daily-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+
+    .daily-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      background: rgba(233,69,96,0.12);
+      border: 1px solid rgba(233,69,96,0.25);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .daily-body { flex: 1; min-width: 220px; }
+
+    .daily-body h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .daily-body p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .daily-body p strong { color: var(--text); }
 
     /* ── SCREENSHOTS ── */
     .screenshots-scroll {
@@ -362,6 +428,61 @@
       border-radius: 100px;
     }
 
+    .facts-table {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 130px) minmax(0, 1fr);
+      gap: 10px 20px;
+      font-size: 14px;
+    }
+
+    .facts-table dt {
+      color: var(--text-muted);
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    .facts-table dd {
+      color: var(--text);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 480px) {
+      .facts-table {
+        grid-template-columns: 1fr;
+        gap: 2px 0;
+      }
+      .facts-table dd {
+        margin-bottom: 10px;
+      }
+    }
+
+    .press-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .press-gallery a {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .press-gallery img {
+      width: 100%;
+      display: block;
+    }
+
+    .press-gallery-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
     /* ── SUPPORT ── */
     .faq-list {
       margin-top: 32px;
@@ -415,6 +536,7 @@
       font-weight: 700;
       text-decoration: none;
       font-size: 15px;
+      overflow-wrap: anywhere;
     }
 
     /* ── FOOTER ── */
@@ -443,6 +565,7 @@
       display: flex;
       gap: 20px;
       justify-content: center;
+      flex-wrap: wrap;
       margin-top: 12px;
     }
 
@@ -471,8 +594,11 @@
         </svg>
         Download on the App Store
       </a>
+      <a href="https://hamsterwheel.carebot.me/?ref=landing" class="btn-browser" target="_blank" rel="noopener">
+        Play free in your browser
+      </a>
     </div>
-    <p class="hero-meta"><span>Free to try</span> — first 7 weeks, no restrictions. A one-time unlock for the full game. No ads, no subscriptions.</p>
+    <p class="hero-meta"><span>Free to try</span> — first 14 weeks, no restrictions. A one-time unlock for the full game. No ads, no subscriptions.</p>
   </div>
 </section>
 
@@ -502,8 +628,8 @@
 
     <div class="what-grid" style="margin-top: 40px;">
       <div class="what-block">
-        <h3>60 hours. 8 locations.</h3>
-        <p>Every turn is one week. Allocate <strong>40 weekday hours and 20 weekend hours</strong> across 8 locations — the Job Center, University, Bank, Shopping district, Flea Market, Community center, your Work, and your Apartment. Every hour you spend is a trade-off.</p>
+        <h3>60 hours. 9 locations.</h3>
+        <p>Every turn is one week. Allocate <strong>40 weekday hours and 20 weekend hours</strong> across 9 locations — the Job Center, University, Bank, Shopping district, Flea Market, Community center, The Daily Grind café, your Work, and your Apartment. Every hour you spend is a trade-off.</p>
       </div>
       <div class="what-block">
         <h3>Turn-based strategy.</h3>
@@ -512,6 +638,22 @@
       <div class="what-block">
         <h3>The chaos of 2026.</h3>
         <p>Tariff announcements tank your grocery budget. Crypto pumps and dumps. The Fed raises rates. Your landlord raises the rent. <strong>Satirical weekly news events</strong> create real economic pressure — the same strategy that worked last week might not work next week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── TODAY'S WHEEL ──────────── -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <p class="section-label">Free Every Day</p>
+    <h2>Today's Wheel.</h2>
+
+    <div class="daily-card">
+      <div class="daily-icon">🎡</div>
+      <div class="daily-body">
+        <p><strong>Today's Wheel</strong> is a free daily game — everyone who plays today gets the exact same board, the same economy, the same news cycle. Seven weeks long, start to finish. <strong>Share your score</strong> and see how your run stacks up.</p>
+        <p>No purchase, no account, no commitment. Play it in the <a href="https://hamsterwheel.carebot.me/?ref=landing" style="color: var(--accent); font-weight: 700;">browser demo</a> or right inside the app.</p>
       </div>
     </div>
   </div>
@@ -649,29 +791,68 @@
 </section>
 
 <!-- ──────────── PRESS KIT ──────────── -->
-<section class="section">
+<section class="section" id="press">
   <div class="container">
     <p class="section-label">Press Kit</p>
     <h2>For journalists and creators.</h2>
 
     <div class="presskit-box">
+      <p style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Short (50 words)</p>
       <p class="presskit-copy">
-        "The Hamster Wheel is a satirical life-simulation strategy game where you allocate 60 hours per week across 8 locations, outsmart AI rivals with distinct personalities, and navigate the economic chaos of 2026. Free to try on iOS — 7 full weeks of gameplay, no ads, no subscriptions."
+        THE HAMSTER WHEEL is a satirical, turn-based life-sim strategy game. Every week hands you 60 hours to allocate across nine locations. Outmaneuver AI rivals with real personalities, chase one of five victory paths, and survive a 2026 news cycle of tariffs, crypto crashes, and rent hikes.
       </p>
 
-      <div class="facts-list">
+      <p style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Long (~150 words)</p>
+      <p class="presskit-copy">
+        THE HAMSTER WHEEL is a satirical, turn-based life-simulation strategy game built in the spirit of the life-sim board games of the 1990s. Every turn is one week: allocate 40 weekday hours and 20 weekend hours across nine locations — the Job Center, University, Bank, Shopping district, Flea Market, Community center, The Daily Grind café, your Work, and your Apartment. Outmaneuver AI rivals with real personalities, from the 80-hour grinder chasing passive income to the veteran who has been playing this game since before you were born. Chase one of five victory paths: Wealth, Career, Education, Wellbeing, or the hardest of all, Self-Actualized. A running news cycle of tariffs, crypto pumps and dumps, and rent hikes means the strategy that worked last week might not work next week. Free for fourteen weeks, then a one-time unlock — no ads, no subscriptions. Expansion packs add more rivals and more chaos.
+      </p>
+
+      <dl class="facts-table">
+        <dt>Developer</dt>
+        <dd>Kari Ann Kristiansen — solo indie developer, Norway</dd>
+        <dt>Platform</dt>
+        <dd>iPhone &amp; iPad</dd>
+        <dt>Released</dt>
+        <dd>March 2026</dd>
+        <dt>Price</dt>
+        <dd>Free to try, one-time unlock for the full game</dd>
+        <dt>App Store</dt>
+        <dd><a href="https://apps.apple.com/app/id6760509424" target="_blank" rel="noopener">apps.apple.com/app/id6760509424</a></dd>
+        <dt>Browser demo</dt>
+        <dd><a href="https://hamsterwheel.carebot.me/?ref=press" target="_blank" rel="noopener">hamsterwheel.carebot.me</a></dd>
+        <dt>Contact</dt>
+        <dd><a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com">kariannolsenkristiansen+hamsterwheel@gmail.com</a></dd>
+      </dl>
+
+      <div class="facts-list" style="margin-top: 20px;">
         <span class="fact-badge">Solo developer</span>
         <span class="fact-badge">Free to try</span>
         <span class="fact-badge">One-time unlock</span>
         <span class="fact-badge">No ads</span>
-        <span class="fact-badge">No accounts</span>
         <span class="fact-badge">iOS</span>
         <span class="fact-badge">Turn-based strategy</span>
         <span class="fact-badge">Hot seat multiplayer</span>
       </div>
 
-      <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
-        Screenshots and app icon available above. For additional assets, contact
+      <p style="margin-top: 28px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Assets</p>
+      <div class="press-gallery">
+        <a href="assets/icon.png" target="_blank" rel="noopener">
+          <img src="assets/icon.png" alt="App icon" loading="lazy">
+        </a>
+        <a href="assets/press/press-1-opening.jpg" target="_blank" rel="noopener">
+          <img src="assets/press/press-1-opening.jpg" alt="Screenshot: opening screen" loading="lazy">
+        </a>
+        <a href="assets/press/press-2-rivals.jpg" target="_blank" rel="noopener">
+          <img src="assets/press/press-2-rivals.jpg" alt="Screenshot: AI rivals" loading="lazy">
+        </a>
+        <a href="assets/press/press-3-board.jpg" target="_blank" rel="noopener">
+          <img src="assets/press/press-3-board.jpg" alt="Screenshot: board map" loading="lazy">
+        </a>
+        <a href="assets/press/press-4-victory.jpg" target="_blank" rel="noopener">
+          <img src="assets/press/press-4-victory.jpg" alt="Screenshot: victory screen" loading="lazy">
+        </a>
+      </div>
+      <p class="press-gallery-caption">Click any image to open the full-size file. For additional assets, contact
         <a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com" style="color: var(--accent);">kariannolsenkristiansen+hamsterwheel@gmail.com</a>.
       </p>
     </div>
@@ -703,7 +884,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">What is the free trial?</div>
-        <div class="faq-a">The first 7 weeks of gameplay are completely free — full access to all game mechanics, all locations, and all rivals. No credit card required, no restrictions. After week 7, a one-time unlock continues the game forever.</div>
+        <div class="faq-a">The first 14 weeks of gameplay are completely free — full access to all game mechanics, all locations, and all rivals. No credit card required, no restrictions. After week 14, a one-time unlock continues the game forever.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">The game is crashing / something isn't working.</div>
@@ -725,6 +906,7 @@
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="#support">Support</a>
+      <a href="#press">Press</a>
       <a href="mailto:kariannolsenkristiansen+hamsterwheel@gmail.com">Contact</a>
     </div>
   </div>
